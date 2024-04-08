@@ -350,15 +350,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-nodeport" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 NodePort
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#33-ingress" class="md-nav__link">
     <span class="md-ellipsis">
       3.3 Ingress
@@ -963,15 +954,6 @@
   <a href="#31-cluster-ip" class="md-nav__link">
     <span class="md-ellipsis">
       3.1 Cluster IP
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#32-nodeport" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 NodePort
     </span>
   </a>
   
@@ -1757,12 +1739,14 @@ websphere-liberty-service1   ClusterIP   172.30.82.44   &lt;none&gt;        9080
 websphere-liberty-app-6fb8f5b9fd-x4c89   1/1     Running   0          4m12s   10.131.0.87   worker-2   &lt;none&gt;           &lt;none&gt;
 </code></pre></div>
 <p>But as we said, this type of service is accessible only from inside the cluster itself. We have other two types of services to expose the application externally.</p>
-<h4 id="32-nodeport">3.2 NodePort</h4>
-<div class="admonition info">
-<p class="admonition-title">Reference</p>
-<p><a href="https://kubernetes.io/docs/concepts/services-networking/service/#nodeport">https://kubernetes.io/docs/concepts/services-networking/service/#nodeport</a></p>
-</div>
-<p>Create a file called <strong>was-service2.yaml</strong> with this content:</p>
+<!-- 
+#### 3.2 NodePort
+
+!!! info "Reference"
+    https://kubernetes.io/docs/concepts/services-networking/service/#nodeport
+
+Create a file called **was-service2.yaml** with this content:
+
 <div class="copy highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -1777,47 +1761,63 @@ websphere-liberty-app-6fb8f5b9fd-x4c89   1/1     Running   0          4m12s   10
 <span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9080</span>
 <span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9080</span>
 </code></pre></div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The <strong>indentation</strong> is very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, <strong>all the files used in the labs are in the artifact folder under the user home folder</strong>.</p>
-</div>
-<p>Once you have the file created, execute:</p>
+
+!!! tip
+    The **indentation** is very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, **all the files used in the labs are in the artifact folder under the user home folder**.
+
+Once you have the file created, execute:
+
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-service2.yaml
 </code></pre></div>
+
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>sevice/websphere-liberty-service2 created
 </code></pre></div>
-<p>If everything went well, your service should be deployed:</p>
+
+If everything went well, your service should be deployed:
+
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>services<span class="w"> </span>-n<span class="w"> </span>nsX
 </code></pre></div>
+
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)          AGE
 websphere-liberty-service1   ClusterIP   172.30.82.44     &lt;none&gt;        9080/TCP         5m2s
 websphere-liberty-service2   NodePort    172.30.206.129   &lt;none&gt;        9080:32526/TCP   11s
 </code></pre></div>
-<p>A service of type NodePort is a ClusterIP service plus a NodePort. With NodePort, OpenShift enables on all the nodes that specific port to access the application from outside the cluster. This port is a random number between 30000 and 32767. It can be fixed in the service yaml file (but you should be sure it is not already taken).</p>
-<p>So now, we can access to our application browsing directly to any node IP plus the assigned NodePort. </p>
-<div class="admonition warning">
-<p class="admonition-title">Note</p>
-<p>On this workshop environment, you dont have permissions to see node related information via command line (<code>oc get nodes</code>).</p>
-</div>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p><strong>REVIEW</strong> <strong>REVIEW</strong> <strong>REVIEW</strong> <strong>REVIEW</strong> <strong>REVIEW</strong></p>
-</div>
-<p><img alt="Arch" src="images/app-mod-ocp/2.2.06.png" style="max-height:700px" /></p>
-<p>But you can access the public IPs via the cluster itself. </p>
-<p>Menu on IBM Cloud -&gt; OpenShift -&gt; Clusters</p>
-<p><img alt="Arch" src="images/app-mod-ocp/2.2.07.png" style="max-height:700px" /></p>
-<p>Select the cluster:</p>
-<p><img alt="Arch" src="images/app-mod-ocp/2.2.08.png" style="max-height:700px" /></p>
-<p>Go to Worker nodes section and see the Public IP address:</p>
-<p><img alt="Arch" src="images/app-mod-ocp/2.2.09.png" style="max-height:700px" /></p>
-<p>In our case, change the IP with one shown before, and the port with your Node Port.  <a href="http://158.xxx.xxx.xxx:31406/">http://158.xxx.xxx.xxx:31406/</a> (use your NodePort),</p>
-<p><img alt="Arch" src="images/app-mod-ocp/2.2.10.png" style="max-height:700px" /></p>
-<p>NodePort is nice, we get TCP access for example but without features like HTTP/HTTPS, session affinity, etc... In the next section we will see how to get access to that kind of features.</p>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p><strong>REVIEW</strong> <strong>REVIEW</strong> <strong>REVIEW</strong> <strong>REVIEW</strong> <strong>REVIEW</strong></p>
-</div>
+
+A service of type NodePort is a ClusterIP service plus a NodePort. With NodePort, OpenShift enables on all the nodes that specific port to access the application from outside the cluster. This port is a random number between 30000 and 32767. It can be fixed in the service yaml file (but you should be sure it is not already taken).
+
+So now, we can access to our application browsing directly to any node IP plus the assigned NodePort. 
+
+!!! warning "Note"
+    On this workshop environment, you dont have permissions to see node related information via command line (`oc get nodes`).
+
+!!! danger
+    **REVIEW** **REVIEW** **REVIEW** **REVIEW** **REVIEW**
+
+![Arch](images/app-mod-ocp/2.2.06.png){: style="max-height:700px"}
+
+But you can access the public IPs via the cluster itself. 
+
+Menu on IBM Cloud -> OpenShift -> Clusters
+
+![Arch](images/app-mod-ocp/2.2.07.png){: style="max-height:700px"}
+
+Select the cluster:
+
+![Arch](images/app-mod-ocp/2.2.08.png){: style="max-height:700px"}
+
+Go to Worker nodes section and see the Public IP address:
+
+![Arch](images/app-mod-ocp/2.2.09.png){: style="max-height:700px"}
+
+In our case, change the IP with one shown before, and the port with your Node Port.  http://158.xxx.xxx.xxx:31406/ (use your NodePort),
+
+![Arch](images/app-mod-ocp/2.2.10.png){: style="max-height:700px"}
+
+NodePort is nice, we get TCP access for example but without features like HTTP/HTTPS, session affinity, etc... In the next section we will see how to get access to that kind of features.
+
+!!! danger
+    **REVIEW** **REVIEW** **REVIEW** **REVIEW** **REVIEW** -->
+
 <h4 id="33-ingress">3.3 Ingress</h4>
 <div class="admonition info">
 <p class="admonition-title">Reference</p>
@@ -3727,7 +3727,7 @@ cd transformationadvisor*
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-04-08T07:39:53+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-04-08</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-04-08T15:50:38+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-04-08</span>
   </span>
 
     
