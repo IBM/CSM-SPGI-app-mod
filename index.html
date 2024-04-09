@@ -1604,9 +1604,9 @@ Using project &quot;default&quot;.
 </code></pre></div>
 <p>If login is successful, command result gives the number of projects you have permissions to, and which one is the default. As you have reader rights, you'll see all of them, but you just have writting permission on yours.</p>
 <p>You can set your project as the default via: </p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project ${PROJECT}
 </code></pre></div>
-<div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>Now using project &quot;ns30&quot; on server &quot;https://api.XXXXX.cloud.techzone.ibm.com:6443&quot;.
+<div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>Now using project &quot;nsX&quot; on server &quot;https://api.XXXXX.cloud.techzone.ibm.com:6443&quot;.
 </code></pre></div>
 <p>We have installed the OpenShift command line for you in the RHEL bastion. However, it you wanted to also install the command line in your own desktop, click on help icon, select <strong>Command Line Tools</strong> and follow the instructions from the OpenShift console:</p>
 <p><img alt="2.1.04" src="images/app-mod-ocp/2.1.04.png" style="max-height:700px" /></p>
@@ -1660,10 +1660,10 @@ Verify and repeat same procedure with:
 </div>
 <p>Because the file exists in <code>/artifacts</code> directory, execute:</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/home/userX/artifacts<span class="w"> </span>
-oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-deployment.yaml
+oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-deployment.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <p>If everything went well, your pod should be running. Check it out executing:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>NAME                                     READY   STATUS    RESTARTS   AGE
 websphere-liberty-app-6fb8f5b9fd-x4c89   1/1     Running   0          37s
@@ -1698,12 +1698,12 @@ Application is running but it can't be accessed. </p>
 <p>The <strong>indentation</strong> is very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, <strong>all the files used in the labs are in the artifact folder under the user home folder</strong>.</p>
 </div>
 <p>Once you have the file created, execute:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-service1.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-service1.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>sevice/websphere-liberty-service1 created
 </code></pre></div>
 <p>If everything went well, your service should be deployed, and the application accessed from inside the cluster (this means other pods running in it):</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>services<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>services<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>NAME                         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE
 websphere-liberty-service1   ClusterIP   172.30.82.44   &lt;none&gt;        9080/TCP   10s
@@ -1713,7 +1713,7 @@ websphere-liberty-service1   ClusterIP   172.30.82.44   &lt;none&gt;        9080
 <p>If you don't find the service, double check your default project (<code>oc projects</code> or <code>oc get services --all-namespaces</code>).</p>
 </div>
 <p>Executing the following command, you can also see the mapping to the real endpoints (your application pods). It doesn't matter if your application scales up, scales down, moves to other worker... that will be managed internally by the service. You just access to the service name or its internal IP:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>describe<span class="w"> </span>service<span class="w"> </span>websphere-liberty-service1<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>describe<span class="w"> </span>service<span class="w"> </span>websphere-liberty-service1<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code><span class="nt">Name</span><span class="p">:</span><span class="w">              </span><span class="l l-Scalar l-Scalar-Plain">websphere-liberty-service1</span>
 <span class="nt">Namespace</span><span class="p">:</span><span class="w">         </span><span class="l l-Scalar l-Scalar-Plain">ns30</span>
@@ -1733,7 +1733,7 @@ websphere-liberty-service1   ClusterIP   172.30.82.44   &lt;none&gt;        9080
 </code></pre></div>
 <p>If <strong>Endpoints</strong> is empty, it means the application has not been found. Review the steps on the previous chapter.</p>
 <p>We can check the IP of our pod, to see that it matches the endpoint from the service, with the following command:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>NAME                                     READY   STATUS    RESTARTS   AGE     IP            NODE       NOMINATED NODE   READINESS GATES
 websphere-liberty-app-6fb8f5b9fd-x4c89   1/1     Running   0          4m12s   10.131.0.87   worker-2   &lt;none&gt;           &lt;none&gt;
@@ -1858,12 +1858,12 @@ Menu on IBM Cloud -> OpenShift -> Clusters -> Select your cluster -> Overview
 ![Arch](images/app-mod-ocp/2.2.11.png){: style="max-height:700px"} -->
 
 <p>Once you have the file created, execute:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-ingress.yaml<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-ingress.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>ingress.networking.k8s.io/websphere-liberty-ingress created
 </code></pre></div>
 <p>If everything went well, your service should be deployed:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>NAME                        CLASS    HOSTS                                                                             ADDRESS                                                               PORTS   AGE
 websphere-liberty-ingress   &lt;none&gt;   websphere-liberty-app-ns30.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com   router-default.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com   80      17s
@@ -1881,23 +1881,23 @@ websphere-liberty-ingress   &lt;none&gt;   websphere-liberty-app-ns30.apps.65f05
 </div>
 <p><img alt="2.2.13" src="images/app-mod-ocp/2.2.13.png" style="max-height:700px" /></p>
 <p>You can also try with curl:</p>
-<p><div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://websphere-liberty-app-nsX.apps.XXXXXX.cloud.techzone.ibm.com/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>WebSphere
+<p><div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://websphere-liberty-app-<span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>.<span class="si">${</span><span class="nv">CLUSTER_DOMAIN</span><span class="si">}</span>/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>WebSphere
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code><span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>WebSphere Liberty 19.0.0.9<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
             <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>WebSphere Liberty 19.0.0.9<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 </code></pre></div></p>
 <h3 id="4-clean-all-the-artifacts">4. Clean all the artifacts</h3>
 <p>To delete all artifacts, you can use the previous files that define the object:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-service1.yaml
-oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-service2.yaml
-oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-ingress.yaml
-oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-deployment.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-service1.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
+oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-service2.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
+oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-ingress.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
+oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-deployment.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <h2 id="lab-3-storage">Lab 3 - Storage</h2>
 <h3 id="1-check-your-current-application">1. Check your current application</h3>
 <p>First, we are going to check what happens when you have not assigned external persistent storage on your application.</p>
 <p>Create your application:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-deployment.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-deployment.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <p>Create a file internally in the pod via the pod's <strong>Terminal</strong>:</p>
 <p><img alt="3.1.01" src="images/app-mod-ocp/3.1.01.png" style="max-height:400px" /></p>
@@ -1936,7 +1936,7 @@ openshift-storage.noobaa.io   openshift-storage.noobaa.io/obc         Delete    
 </code></pre></div>
 <p>You can install other types such as NFS but we are going to use the default one.</p>
 <p>Delete all artifacts:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-deployment.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-deployment.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <h3 id="3-create-a-persistent-volume-claim">3. Create a Persistent Volume Claim</h3>
 <p>We will use again our WebSphere Liberty sample application. We will externalize logs directory from the container to maintain existing logs after pod restart.</p>
@@ -2015,12 +2015,12 @@ openshift-storage.noobaa.io   openshift-storage.noobaa.io/obc         Delete    
 <p>The <strong>indentation</strong> is very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, <strong>all the files used in the labs are in the artifact folder under the user home folder</strong>.</p>
 </div>
 <p>Once you have the file created, execute:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-deployment-pvc.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>-f<span class="w"> </span>was-deployment-pvc.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>deployment.apps/websphere-liberty-app created
 </code></pre></div>
 <p>If everything went well, your pod should be running:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                                     READY   STATUS    RESTARTS   AGE
 websphere-liberty-app-658997c5cf-6fhp2   1/1     Running   0          55s
@@ -2033,7 +2033,7 @@ websphere-liberty-app-658997c5cf-6fhp2   1/1     Running   0          55s
 <p class="admonition-title">Tip</p>
 <p>Replace <code>websphere-liberty-app-658997c5cf-6fhp2</code> with the output from the previous command and <code>nsX</code> with your user number.</p>
 </div>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>rsh<span class="w"> </span>websphere-liberty-app-658997c5cf-6fhp2<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>rsh<span class="w"> </span>websphere-liberty-app-658997c5cf-6fhp2<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 </li>
 <li>
@@ -2058,7 +2058,7 @@ dr-xr-xr-x. 1 root    root   50 Mar 27 14:47 ..
 <p class="admonition-title">Tip</p>
 <p>Replace <code>websphere-liberty-app-658997c5cf-6fhp2</code> with the output from the previous command and <code>nsX</code> with your user number.</p>
 </div>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>websphere-liberty-app-658997c5cf-6fhp2<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>websphere-liberty-app-658997c5cf-6fhp2<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <p>You can see the pod is deleted and another one is created automatically.</p>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>pod &quot;websphere-liberty-app-658997c5cf-6fhp2&quot; deleted
@@ -2076,7 +2076,7 @@ websphere-liberty-app-658997c5cf-g4lf7   1/1     Running   0          17s
 <p class="admonition-title">Tip</p>
 <p>Replace <code>websphere-liberty-app-658997c5cf-g4lf7</code> with the output from the previous command and <code>nsX</code> with your user number.</p>
 </div>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>rsh<span class="w"> </span>websphere-liberty-app-658997c5cf-g4lf7<span class="w"> </span>-n<span class="w"> </span>nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>rsh<span class="w"> </span>websphere-liberty-app-658997c5cf-g4lf7<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 </li>
 <li>
@@ -2098,8 +2098,8 @@ dr-xr-xr-x. 1 root    root   50 Mar 27 14:50 ..
 </ol>
 <h3 id="5-clean-all-the-artifacts">5. Clean all the artifacts</h3>
 <p>To delete all artifacts, you can use the previous files:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-deployment-pvc.yaml
-oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-pvc1.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-deployment-pvc.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
+oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </span>was-pvc1.yaml<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <h2 id="lab-4-image-repository">Lab 4 - Image repository</h2>
 <p>During these labs we have been using <a href="https://hub.docker.com/">Docker Hub</a> as image repository, but in this lab, we are going to create our own docker image and we are going to push it to OpenShift image repository.</p>
@@ -2319,17 +2319,17 @@ podman push $HOST/nsX/hellok8s:1.0 $HOST/nsX/hellok8s:1.0
 <p>The <strong>indentation</strong> is very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, <strong>all the files used in the labs are in the artifact folder under the user home folder</strong>.</p>
 </div>
 <p>To create the deployment, execute the following command:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f was-deployment-registry1.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f was-deployment-registry1.yaml -n ${PROJECT}
 </code></pre></div>
 <p>Also, create the service and the ingress that is required in order to be able to access the application from outside the OpenShift cluster (since we are using the same application name, the service and ingress definitions from earlier can be reused):</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f was-service1.yaml
-oc create -f was-ingress.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f was-service1.yaml -n ${PROJECT}
+oc create -f was-ingress.yaml -n ${PROJECT}
 </code></pre></div>
 <p>As we have created an application on Websphere Liberty, we have to use the context root for the application (HelloK8s) to be able to access it. Point your browser to:</p>
 <p><a href="http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s">http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s</a></p>
 <p><img alt="4.4.01" src="images/app-mod-ocp/4.4.01.png" style="max-height:100px" /></p>
 <p>You can also use <strong>curl</strong> to test your application:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl<span class="w"> </span>http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl<span class="w"> </span>http://websphere-liberty-app-<span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>.<span class="si">${</span><span class="nv">CLUSTER_DOMAIN</span><span class="si">}</span>/HelloK8s
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>I&#39;m alive!!!
 </code></pre></div>
@@ -2337,7 +2337,7 @@ oc create -f was-ingress.yaml
 <p>Let's also explore this case as it is very useful to understand how to use an external registry.</p>
 <p>Let's create a secret executing this command:</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create secret docker-registry exposed-openshift-registry \
-  -n nsX \
+  -n ${PROJECT} \
   --docker-server=$HOST \
   --docker-username=$(oc whoami) \
   --docker-password=$(oc whoami -t) \
@@ -2381,7 +2381,7 @@ oc create -f was-ingress.yaml
 <p>The <strong>indentation</strong> is very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, <strong>all the files used in the labs are in the artifact folder under the user home folder</strong>.</p>
 </div>
 <p>Once you have the file updated, you can update the application via the apply command:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc apply -f was-deployment-registry2.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc apply -f was-deployment-registry2.yaml -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>deployment.apps/websphere-liberty-app configured
 </code></pre></div>
@@ -2390,7 +2390,7 @@ oc create -f was-ingress.yaml
 <p>Disregard any warning yield as a result of using <code>oc apply -f</code></p>
 </div>
 <p>Check the status of the pod:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                                     READY   STATUS    RESTARTS   AGE
 websphere-liberty-app-848fc68d97-2q7w5   1/1     Running   0          53s
@@ -2404,15 +2404,15 @@ websphere-liberty-app-848fc68d97-2q7w5   1/1     Running   0          53s
 <p>We have simulated the behavior as if it was a real external docker image registry.</p>
 </div>
 <p>You can also execute the following curl command:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl<span class="w"> </span>http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl<span class="w"> </span>http://websphere-liberty-app-<span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>.<span class="si">${</span><span class="nv">CLUSTER_DOMAIN</span><span class="si">}</span>/HelloK8s
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>I&#39;m alive!!!
 </code></pre></div>
 <h3 id="5-clean-all-the-artifacts_1">5. Clean all the artifacts</h3>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc delete -f was-deployment-registry2.yaml
-oc delete -f was-service1.yaml
-oc delete -f was-ingress.yaml
-oc delete secret exposed-openshift-registry
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc delete -f was-deployment-registry2.yaml -n ${PROJECT}
+oc delete -f was-service1.yaml -n ${PROJECT}
+oc delete -f was-ingress.yaml -n ${PROJECT}
+oc delete secret exposed-openshift-registry -n ${PROJECT}
 </code></pre></div>
 <h2 id="lab-5-application-management">Lab 5 - Application Management</h2>
 <p>Let's start deploying the Java EE or the Node.js application with its services to be accessible.</p>
@@ -2420,12 +2420,12 @@ oc delete secret exposed-openshift-registry
 <p class="admonition-title">Info</p>
 <p>All the commands and screenshots will be using Java EE sample, but it works the same with Node.js</p>
 </div>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f node-deployment-registry1.yaml
-oc create -f node-service1.yaml
-oc create -f node-ingress.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f node-deployment-registry1.yaml -n ${PROJECT}
+oc create -f node-service1.yaml -n ${PROJECT}
+oc create -f node-ingress.yaml -n ${PROJECT}
 </code></pre></div>
 <p>Then, list all pods executing:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsx
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <p>Verify that <strong>node-app</strong> pod has not been restarted anytime. <strong>RESTARTS</strong> value should be <strong>0</strong>.</p>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                        READY   STATUS    RESTARTS   AGE
@@ -2437,7 +2437,7 @@ node-app-59fdfd5d69-vqphh   1/1     Running   0          14s
 <p><a href="http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/">http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/</a></p>
 <p><img alt="5.1.01" src="images/app-mod-ocp/5.1.01.png" style="max-height:120px" /></p>
 <p>Or from the command line:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-${PROJECT}.${CLUSTER_DOMAIN}/
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>I&#39;m alive 8!!!
 </code></pre></div>
@@ -2445,11 +2445,11 @@ node-app-59fdfd5d69-vqphh   1/1     Running   0          14s
 <p><a href="http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/kill">http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/kill</a></p>
 <p><img alt="5.1.02" src="images/app-mod-ocp/5.1.02.png" style="max-height:120px" /></p>
 <p>Or executing the respective curl command: </p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/kill
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-${PROJECT}.${CLUSTER_DOMAIN}/kill
 </code></pre></div>
 <p>After invoking <strong>/kill</strong>, if you check the running pods in our namespace, you will see that <strong>node-app</strong> pod is still running but now RESTARTS field has value <strong>1</strong>. If you execute the commands very fast, you will be able to see how the old pod is completed and a new one is started.</p>
 <p>This is happening because in the deployment specification of the application we set "replicas" to <strong>1</strong>. This means, we want always one instance running.</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsx
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                        READY   STATUS    RESTARTS      AGE
 node-app-59fdfd5d69-vqphh   1/1     Running   1 (39s ago)   2m49s
@@ -2459,10 +2459,10 @@ node-app-59fdfd5d69-vqphh   1/1     Running   1 (39s ago)   2m49s
 <p class="admonition-title">Tip</p>
 <p>Make sure to change the pod name <code>node-app-59fdfd5d69-vqphh</code> with the name of your pod from the previous steps.</p>
 </div>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc delete pod node-app-59fdfd5d69-vqphh -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc delete pod node-app-59fdfd5d69-vqphh -n ${PROJECT}
 </code></pre></div>
 <p>Then, check the restarts of the pod</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsx
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                        READY   STATUS    RESTARTS   AGE
 node-app-59fdfd5d69-fjzmc   1/1     Running   0          4s
@@ -2518,23 +2518,23 @@ node-app-59fdfd5d69-fjzmc   1/1     Running   0          4s
 <p><img alt="5.2.03" src="images/app-mod-ocp/5.2.03.png" style="max-height:800px" /></p>
 <p>Then press <strong>Save</strong> button and <strong>Reload</strong>. </p>
 <p>If you prefer to edit it using vi, you can execute this command, but be careful with the indentation that might be different:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc edit deployment node-app -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc edit deployment node-app -n ${PROJECT}
 </code></pre></div>
 <p>With this configuration, OpenShift will invoke the endpoint <strong>/heath</strong> in intervals of 10 seconds. If the application does not return HTTP 200 OK for three consecutive times, OpenShift will restart the application.</p>
 <p>Load again the application in the browser:</p>
 <p><a href="http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/">http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/</a></p>
 <p>or execute</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-${PROJECT}.${CLUSTER_DOMAIN}/
 </code></pre></div>
 <p>List existing pods and take note of the number of restarts:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <p>Check the logs of the application:</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Make sure to change the pod name <code>node-app-58f9494cdf-kf7k7</code> with the name of your pod from the previous step.</p>
 </div>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc logs -f node-app-58f9494cdf-kf7k7 -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc logs -f node-app-58f9494cdf-kf7k7 -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>&gt; HelloKube@1.0.0 start
 &gt; node app.js
@@ -2561,7 +2561,7 @@ node-app-59fdfd5d69-fjzmc   1/1     Running   0          4s
 <p><a href="http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/infect">http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/infect</a></p>
 <p><img alt="5.2.04" src="images/app-mod-ocp/5.2.04.png" style="max-height:120px" /></p>
 <p>or executing:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/infect
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-${PROJECT}.${CLUSTER_DOMAIN}/infect
 </code></pre></div>
 <p>We will see how the logs will change. The endpoint <strong>/health</strong> is now returning <strong>HTTP 500</strong> and after three consecutive invocations with this return code the pod will be restarted.</p>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>...
@@ -2598,10 +2598,10 @@ npm ERR! A complete log of this run can be found in: /root/.npm/_logs/2024-03-27
 <p>Click on our node-app deployment and press the up arrow twice:</p>
 <p><img alt="5.3.01" src="images/app-mod-ocp/5.3.01.png" style="max-height:600px" /></p>
 <p>You can also edit the deployment yaml with the UI or the CLI and change the <strong>replicas</strong> parameter or there is a specific command to scale:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc scale deployment/node-app --replicas=3 -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc scale deployment/node-app --replicas=3 -n ${PROJECT}
 </code></pre></div>
 <p>Now check available pods, you should see three:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsX | grep node
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT} | grep node
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                        READY   STATUS    RESTARTS        AGE
 node-app-58f9494cdf-kf7k7   1/1     Running   1 (2m23s ago)   6m4s
@@ -2630,7 +2630,7 @@ node-app-58f9494cdf-tk2nb   1/1     Running   0               17s
 <p><img alt="5.4.02" src="images/app-mod-ocp/5.4.02.png" style="max-height:1000px" /></p>
 <p><strong>Save</strong> and <strong>Reload</strong> in order to see the latest release. </p>
 <p>If you prefer to edit it using vi, you can execute this command, but be careful with the indentation that might be different:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc edit deployment node-app -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc edit deployment node-app -n ${PROJECT}
 </code></pre></div>
 <p>Double check a new pod has been created. It means values has been applied.</p>
 <p>You can see on events tab, deployment-controller do some actions.</p>
@@ -2660,19 +2660,19 @@ node-app-58f9494cdf-tk2nb   1/1     Running   0               17s
 <p>The <strong>indentation</strong> is very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, <strong>all the files used in the labs are in the artifact folder under the user home folder</strong>.</p>
 </div>
 <p>Once you have the file updated, execute:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f node-hpa.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f node-hpa.yaml -n ${PROJECT}
 </code></pre></div>
 <p>You can also do it via Web browser, <code>Workload -&gt; Horizontal Pod AutoScalers -&gt; Create Horizontal Pod Autoscaler</code> (and change the generated code with ours)</p>
 <p><img alt="5.4.03" src="images/app-mod-ocp/5.4.03.png" style="max-height:700px" /></p>
 <p>Get the values of the hpa. It takes time to get the current metrics, but you can see at least the target:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get hpa/node-hpa
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get hpa/node-hpa -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME       REFERENCE             TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
 node-hpa   Deployment/node-app   &lt;unknown&gt;/40%   1         3         1          79s
 </code></pre></div>
 <p>Now we are going to query the application in an endless loop to generate enough load and force that the CPU consumed by the application grows beyond the specified 40%. Open a new terminal and execute this shell script. Leave it running:</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code><span class="k">for</span><span class="w"> </span><span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">1</span><span class="p">;</span><span class="m">10</span>&lt;<span class="o">=</span><span class="m">100</span><span class="p">;</span><span class="o">))</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="se">\</span>
-curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Connection: close&quot;</span><span class="w"> </span><span class="s2">&quot;http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com&quot;</span><span class="w"> </span>--connect-timeout<span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="se">\</span>
+curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Connection: close&quot;</span><span class="w"> </span><span class="s2">&quot;http://node-app-</span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span><span class="s2">.</span><span class="si">${</span><span class="nv">CLUSTER_DOMAIN</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--connect-timeout<span class="w"> </span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="se">\</span>
 <span class="k">done</span>
 </code></pre></div>
 <p><img alt="5.4.03-2" src="images/app-mod-ocp/5.4.03-2.png" style="max-height:700px" /></p>
@@ -2688,7 +2688,7 @@ curl<span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Con
 <p>Give it a couple of minutes and pods running should escalate to <strong>2</strong>. We can check the story of the auto-scaler in its <strong>Events</strong> tab:</p>
 <p><img alt="5.4.05" src="images/app-mod-ocp/5.4.05.png" style="max-height:700px" /></p>
 <p>You could also use:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc describe hpa node-hpa -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc describe hpa node-hpa -n ${PROJECT}
 </code></pre></div>
 <p><div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>Name:                                                  node-hpa
 Namespace:                                             ns30
@@ -2715,7 +2715,7 @@ Events:
 <span class="hll">  Normal   SuccessfulRescale             2m14s               horizontal-pod-autoscaler  New size: 2; reason: cpu resource utilization (percentage of request) above target
 </span></code></pre></div>
 Check the number of running pods:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                        READY   STATUS    RESTARTS   AGE
 node-app-7cfb58c968-7b5t6   1/1     Running   0          5m16s
@@ -2723,10 +2723,10 @@ node-app-7cfb58c968-9b24k   1/1     Running   0          16m
 </code></pre></div>
 <p>Stop the endless loop you have running on the other terminal window.</p>
 <h3 id="5-clean-all-the-artifacts_2">5. Clean all the artifacts</h3>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc delete -f node-deployment-registry1.yaml
-oc delete -f node-service1.yaml
-oc delete -f node-ingress.yaml
-oc delete -f node-hpa.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc delete -f node-deployment-registry1.yaml -n ${PROJECT}
+oc delete -f node-service1.yaml -n ${PROJECT}
+oc delete -f node-ingress.yaml -n ${PROJECT}
+oc delete -f node-hpa.yaml -n ${PROJECT}
 </code></pre></div>
 <h2 id="lab-6-network-policies">Lab 6 - Network Policies</h2>
 <div class="admonition info">
@@ -2744,29 +2744,29 @@ oc delete -f node-hpa.yaml
 <p>For this lab, you must use a very basic sample application repository that can be built and deployed on OpenShift. The application repository contains Dockerfiles for Nginx images from the repository (<strong>Software Collections</strong>).</p>
 <p><a href="https://github.com/sclorg/nginx-container">https://github.com/sclorg/nginx-container</a></p>
 <p>Create two deployments using the <strong>oc new-app</strong> command (will be explained later on), name the first "front" and the second "backend":</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc new-app nginx~https://github.com/sclorg/nginx-ex --name=front
-oc new-app nginx~https://github.com/sclorg/nginx-ex --name=backend
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc new-app nginx~https://github.com/sclorg/nginx-ex --name=front -n ${PROJECT}
+oc new-app nginx~https://github.com/sclorg/nginx-ex --name=backend -n ${PROJECT}
 </code></pre></div>
 <p>Create a route to the "front" service:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc expose service front
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc expose service front -n ${PROJECT}
 </code></pre></div>
 <h3 id="2-verify-access-to-pod">2. Verify access to pod</h3>
 <p>Verify access to the "front" pod with the <code>oc rsh</code> and <code>curl</code> commands.</p>
 <p>Get route information:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get route
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get route -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME    HOST/PORT                                                         PATH   SERVICES   PORT       TERMINATION   WILDCARD
 front   front-ns30.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com          front      8080-tcp                 None
 </code></pre></div>
 <p>Get services information:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get services
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get services -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)             AGE
 backend   ClusterIP   172.30.168.241   &lt;none&gt;        8080/TCP,8443/TCP   68s
 front     ClusterIP   172.30.108.64    &lt;none&gt;        8080/TCP,8443/TCP   69s
 </code></pre></div>
 <p>Get pods information:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                       READY   STATUS      RESTARTS   AGE
 backend-1-build            0/1     Completed   0          83s
@@ -2784,7 +2784,7 @@ front-659fcd86d6-fh28x     1/1     Running     0          67s
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to your static nginx application on OpenShift<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 </code></pre></div>
 <p>Verify access to the hello pod using the curl command against the URL of the "front" route.</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl -s front-nsX.apps.XXXXXXX.cloud.techzone.ibm.com | grep nginx
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl -s front-${PROJECT}.${CLUSTER_DOMAIN} | grep nginx
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to your static nginx application on OpenShift<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 </code></pre></div>
@@ -2829,7 +2829,7 @@ oc rsh test-f47c85c89-x8j2f curl 172.30.108.64:8080 | grep nginx
 </code></pre></div>
 <h3 id="3-create-the-deny-all-network-policy">3. Create the deny-all network policy</h3>
 <p>From the nsX project, create the <strong>deny-all</strong> network policy:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project ${PROJECT}
 </code></pre></div>
 <p>Create a file called <strong>deny-all.yaml</strong> with this content:</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkPolicy</span>
@@ -2844,10 +2844,10 @@ oc rsh test-f47c85c89-x8j2f curl 172.30.108.64:8080 | grep nginx
 <p>The indentation spaces are very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, all the files used in the labs are in the artifact folder under the user home folder.</p>
 </div>
 <p>Once you have the file created, execute:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f deny-all.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f deny-all.yaml -n ${PROJECT}
 </code></pre></div>
 <p>Verify there is no longer access to the pods in the nsX namespace to the "front" pod via the exposed route. Press <code>Ctrl+C</code> to exit the curl command that does not reply:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl -s -v front-nsX.apps.XXXXXXX.cloud.techzone.ibm.com | grep nginx
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl -s -v front-${PROJECT}.${CLUSTER_DOMAIN} | grep nginx
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>*   Trying 169.50.187.164:80...
 * Connected to front-ns30.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com (169.50.187.164) port 80
@@ -2870,7 +2870,7 @@ oc rsh test-f47c85c89-x8j2f curl 172.30.108.64:8080 | grep nginx
 <p>If the pod lands on the same node as a <strong>router-default</strong> pod, then the curl command works when traffic goes through that router pod. This is only the case with three-node clusters. In a traditional OpenShift cluster, where the control plane or infrastructure nodes are separated from the compute nodes, the network policy would apply to all the router pods in the cluster.</p>
 </div>
 <p>Verify that the "backend" pod can no longer access the IP address of the "front" pod. Wait a few seconds, and then press <code>Ctrl+C</code> to exit the curl command that does not reply:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                       READY   STATUS      RESTARTS   AGE
 backend-1-build            0/1     Completed   0          10m
@@ -2913,12 +2913,12 @@ front-659fcd86d6-fh28x     1/1     Running     0          9m46s
 <p>The indentation spaces are very important. Pay attention when executing the copy and paste. If you have problems with the copy and paste, all the files used in the labs are in the artifact folder under the user home folder.</p>
 </div>
 <p>Once you have the file created, execute:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f allow-specific.yaml -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f allow-specific.yaml -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>networkpolicy.networking.k8s.io/allow-specific created
 </code></pre></div>
 <p>View the network policies in the nsX namespace:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get networkpolicies -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get networkpolicies -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME             POD-SELECTOR       AGE
 allow-specific   deployment=front   20s
@@ -2950,7 +2950,7 @@ No resource quota.
 No LimitRange resource.
 </code></pre></div>
 <p>Verify that the test pod can access the IP address of the front pod or service, but cannot access the IP address of the backend pod or service.</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsX -o wide
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT} -o wide
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                       READY   STATUS      RESTARTS   AGE   IP             NODE       NOMINATED NODE   READINESS GATES
 backend-1-build            0/1     Completed   0          14m   10.131.0.159   worker-2   &lt;none&gt;           &lt;none&gt;
@@ -2998,13 +2998,13 @@ command terminated with exit code 130
 <span class="w">          </span><span class="nt">network.openshift.io/policy-group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ingress</span>
 </code></pre></div>
 <p>Change to your project nsX and create the policy:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project nsX
-oc create -f allow-from-openshift-ingress.yaml -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project ${PROJECT}
+oc create -f allow-from-openshift-ingress.yaml -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>networkpolicy.networking.k8s.io/allow-from-openshift-ingress created
 </code></pre></div>
 <p>Verify access to the front pod via the exposed route:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl front-nsX.apps.XXXXXXX.cloud.techzone.ibm.com | grep nginx
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl front-${PROJECT}.${CLUSTER_DOMAIN} | grep nginx
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to your static nginx application on OpenShift<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 </code></pre></div>
@@ -3015,10 +3015,10 @@ oc create -f allow-from-openshift-ingress.yaml -n nsX
 <p>Bear in mind it is <strong>HTTP</strong> protocol</p>
 </div>
 <h3 id="5-clean-all-the-artifacts_3">5. Clean all the artifacts</h3>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project nsX
-oc delete all -l app=front
-oc delete all -l app=backend
-oc delete route front
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project ${PROJECT}
+oc delete all -l app=front -n ${PROJECT}
+oc delete all -l app=backend -n ${PROJECT}
+oc delete route front -n ${PROJECT}
 </code></pre></div>
 <h2 id="lab-7-operators">Lab 7 - Operators</h2>
 <div class="admonition info">
@@ -3066,12 +3066,12 @@ oc delete route front
 <p>This action creates two objects in OpenShift, these two objects are managed by the OLM, an <strong>Operator Group</strong> and a <strong>Subscription</strong>. The operator group is used mainly to handle security configuration in the namespaces selected for the operator and it stores also what namespaces the operator is watching for CRDs and the subscription is the way to specify what version of the operator to install and how to update it. The link between the Operator Group and the Subscription is that both are in the same namespace.</p>
 <p><img alt="7.1.05" src="images/app-mod-ocp/7.1.05.png" style="max-height:300px" /></p>
 <p>Execute this command to see the created operator:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get operatorgroup -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get operatorgroup -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME         AGE
 ns30-9qxg5   28s
 </code></pre></div>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get operatorgroup ns30-9qxg5 -o yaml -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get operatorgroup ns30-9qxg5 -o yaml -n ${PROJECT}
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -3089,7 +3089,7 @@ ns30-9qxg5   28s
 <span class="hll"><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ns30</span>
 </span></code></pre></div>
 <p>Then execute:</p>
-<p><div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get subscriptions.operators.coreos.com strimzi-kafka-operator -o yaml -n nsX
+<p><div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get subscriptions.operators.coreos.com strimzi-kafka-operator -o yaml -n ${PROJECT}
 </code></pre></div>
  
 You should see something like this:</p>
@@ -3152,17 +3152,17 @@ You should see something like this:</p>
 </span></code></pre></div>
 <p><img alt="7.2.03" src="images/app-mod-ocp/7.2.03.png" style="max-height:800px" /></p>
 <p>Or create it with:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f operator.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f operator.yaml -n ${PROJECT}
 </code></pre></div>
 <p>There are some parameters that Strimzi operator doesn’t inform and they can’t be displayed in the UI like the Status and Version (<a href="https://github.com/strimzi/strimzi-kafka-operator/issues/2671">https://github.com/strimzi/strimzi-kafka-operator/issues/2671</a>), but you can see them with CLI instead.</p>
 <p>Execute this command to check the status:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc wait kafka/my-cluster --for=condition=Ready --timeout=300s -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc wait kafka/my-cluster --for=condition=Ready --timeout=300s -n ${PROJECT}
 </code></pre></div>
 <p>When it is ready, it will answer with:</p>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>kafka.kafka.strimzi.io/my-cluster condition met
 </code></pre></div>
 <p>It takes some time; you can also take a look at the pods:</p>
-<p><div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsX
+<p><div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
  
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME                                                READY   STATUS    RESTARTS   AGE
@@ -3171,7 +3171,7 @@ my-cluster-kafka-0                                  1/1     Running   0         
 my-cluster-zookeeper-0                              1/1     Running   0          98s
 strimzi-cluster-operator-v0.40.0-76cc96b44b-7kvj2   1/1     Running   0          17m
 </code></pre></div></p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc describe kafka my-cluster -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc describe kafka my-cluster -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy highlight"><pre><span></span><code><span class="nt">Status</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">Cluster Id</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">wSDGZ1ZyQtGhugzE_XIszw</span>
@@ -3274,22 +3274,22 @@ test3
 <p>By default, Docker and OpenShift can access to the logs that a container prints to its <strong>STDOUT</strong> and <strong>STDERR</strong>. There are also options to access to internal or custom containers logs.</p>
 <h3 id="1-command-line">1. Command line</h3>
 <p>List running pods and tail logs from one of them:</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f was-deployment-registry1.yaml
-oc create -f was-service1.yaml
-oc create -f was-ingress.yaml
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc create -f was-deployment-registry1.yaml -n ${PROJECT}
+oc create -f was-service1.yaml -n ${PROJECT}
+oc create -f was-ingress.yaml -n ${PROJECT}
 </code></pre></div>
 <p>List the pods to check the application is running</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get pods -n ${PROJECT}
 </code></pre></div>
 <p>Now poke the application in order to produce some logging (run the command below several times)</p>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s/health
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://websphere-liberty-app-${PROJECT}.${CLUSTER_DOMAIN}/HelloK8s/health
 </code></pre></div>
 <p>Retrieve the logs for your application:</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Remember to use your pod name from the previous commands.</p>
 </div>
-<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc logs -f websphere-liberty-app-66cdc65d7-fwrmh -n nsX
+<div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc logs -f websphere-liberty-app-66cdc65d7-fwrmh -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>La, la, la...
 Executing /health. Returning GREEN.
@@ -3727,7 +3727,7 @@ cd transformationadvisor*
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-04-08T15:52:50+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-04-08</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-04-09T15:51:48+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-04-09</span>
   </span>
 
     
