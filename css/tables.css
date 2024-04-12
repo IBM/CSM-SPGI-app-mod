@@ -36,22 +36,3 @@ th, td {
 [data-md-color-scheme="slate"] .md-typeset__table tr:nth-child(2n) {
     background-color: hsla(var(--md-hue),25%,25%,1)
 }
-
-:root .copy > * {
-    --md-code-bg-color: #E1E1E1;
-}
-
-/* :root .output > * {
-    --md-code-bg-color: #F8FAFF;
-} */
-
-
-.hll .l.l-Scalar.l-Scalar-Plain {
-    /* font-size: 2.7rem; */
-    color: red;
-    font-weight: bold;
-}
-
-/* :root .no-copy > * {
-    --md-code-bg-color: #F8FAFF;
-} */
