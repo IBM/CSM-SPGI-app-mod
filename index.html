@@ -1496,7 +1496,7 @@
 <ul>
 <li>
 <p>The OpenShift cluser <strong>web console URL</strong></p>
-<p><a href="https://console-openshift-console.apps.XXXXXX.cloud.techzone.ibm.com/">https://console-openshift-console.apps.XXXXXX.cloud.techzone.ibm.com/</a></p>
+<p><a href="https://console-openshift-console.apps.XXXXXX.ocp.techzone.ibm.com/">https://console-openshift-console.apps.XXXXXX.ocp.techzone.ibm.com/</a></p>
 </li>
 <li>
 <p><strong>Username</strong> and <strong>password</strong> for the OpenShift cluster and the RHEL bastion.</p>
@@ -1563,7 +1563,7 @@ For example:
 <p>Press the websphere-liberty-app <strong>icon</strong> from the middle of the screen to see the status:</p>
 <p><img alt="1.2.06" src="images/app-mod-ocp/1.2.06.png" style="max-height:800px" /></p>
 <p>As you can see, a route has been automatically created for the application. It should be something like:</p>
-<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXX.cloud.techzone.ibm.com">http://websphere-liberty-app-nsX.apps.XXXXXX.cloud.techzone.ibm.com</a> </p>
+<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXX.ocp.techzone.ibm.com">http://websphere-liberty-app-nsX.apps.XXXXXX.ocp.techzone.ibm.com</a> </p>
 <p><img alt="1.2.07" src="images/app-mod-ocp/1.2.07.png" style="max-height:700px" /></p>
 <p>Now, from the same view we were before we can click on the <strong>pod</strong> link to check it's details:</p>
 <p><img alt="1.2.08" src="images/app-mod-ocp/1.2.08.png" style="max-height:800px" /></p>
@@ -1600,7 +1600,7 @@ For example:
 <p class="admonition-title">Important</p>
 <p>To carry out the workshop, a RHEL bastion has been created where users can find the scripts, assets and CLIs required to perform the exercises. Before starting the workshop, all users should have received clear instructions as to how to SSH into that RHEL bastion and how to use it. Otherwise, ask the instructiors.</p>
 </div>
-<div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>Logged into &quot;https://api.XXXXXX.cloud.techzone.ibm.com:6443&quot; as &quot;user30&quot; using the token provided.
+<div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>Logged into &quot;https://api.XXXXXX.ocp.techzone.ibm.com:6443&quot; as &quot;user30&quot; using the token provided.
 
 You have access to 79 projects, the list has been suppressed. You can list all projects with &#39;oc projects&#39;
 
@@ -1610,7 +1610,7 @@ Using project &quot;default&quot;.
 <p>You can set your project as the default via: </p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project ${PROJECT}
 </code></pre></div>
-<div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>Now using project &quot;nsX&quot; on server &quot;https://api.XXXXX.cloud.techzone.ibm.com:6443&quot;.
+<div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>Now using project &quot;nsX&quot; on server &quot;https://api.XXXXX.ocp.techzone.ibm.com:6443&quot;.
 </code></pre></div>
 <p>We have installed the OpenShift command line for you in the RHEL bastion. However, it you wanted to also install the command line in your own desktop, click on help icon, select <strong>Command Line Tools</strong> and follow the instructions from the OpenShift console:</p>
 <p><img alt="2.1.04" src="images/app-mod-ocp/2.1.04.png" style="max-height:700px" /></p>
@@ -1837,7 +1837,7 @@ NodePort is nice, we get TCP access for example but without features like HTTP/H
 <span class="hll"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nsX</span>
 </span><span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">rules</span><span class="p">:</span>
-<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">websphere-liberty-app-nsX.apps.XXXXXX.cloud.techzone.ibm.com</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">websphere-liberty-app-nsX.apps.XXXXXX.ocp.techzone.ibm.com</span>
 <span class="w">      </span><span class="nt">http</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">paths</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/</span>
@@ -1854,7 +1854,7 @@ NodePort is nice, we get TCP access for example but without features like HTTP/H
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Important</p>
-<p>The ingress subdomain XXXXXX must be the one assigned to the cluster. In this case: <strong>apps.XXXXXX.cloud.techzone.ibm.com</strong></p>
+<p>The ingress subdomain XXXXXX must be the one assigned to the cluster. In this case: <strong>apps.XXXXXX.ocp.techzone.ibm.com</strong></p>
 <p>You can get it from the very same OpenShift web console URL you have your browser pointing to.</p>
 </div>
 <!-- You can get it from:
@@ -1870,14 +1870,14 @@ Menu on IBM Cloud -> OpenShift -> Clusters -> Select your cluster -> Overview
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>ingress<span class="w"> </span>-n<span class="w"> </span><span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>
 </code></pre></div>
 <div class="no-copy highlight"><span class="filename">Output</span><pre><span></span><code>NAME                        CLASS    HOSTS                                                                             ADDRESS                                                               PORTS   AGE
-websphere-liberty-ingress   &lt;none&gt;   websphere-liberty-app-ns30.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com   router-default.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com   80      17s
+websphere-liberty-ingress   &lt;none&gt;   websphere-liberty-app-ns30.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com     router-default.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com     80      17s
 </code></pre></div>
 <p>With this Ingress object, OpenShift has configured the ingress controller to route traffic from internal routers to the application/deployment in the cluster.</p>
 <p>The "rule" is that all the requests made for the hostname</p>
-<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXX.cloud.techzone.ibm.com">http://websphere-liberty-app-nsX.apps.XXXXXX.cloud.techzone.ibm.com</a></p>
+<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXX.ocp.techzone.ibm.com">http://websphere-liberty-app-nsX.apps.XXXXXX.ocp.techzone.ibm.com</a></p>
 <p>must be routed directly to the pods selected by the service <strong>websphere-liberty-service1</strong>. This enables, for example, sticky sessions. There are other options to configure the rules not only by hostname. For example, it is also possible to use the path.</p>
 <p>Now you can access the URL</p>
-<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXX.cloud.techzone.ibm.com">http://websphere-liberty-app-nsX.apps.XXXXXX.cloud.techzone.ibm.com</a></p>
+<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXX.ocp.techzone.ibm.com">http://websphere-liberty-app-nsX.apps.XXXXXX.ocp.techzone.ibm.com</a></p>
 <p>in order to access your application. As we are using the cluster's ingress subdomain you can access directly.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -2146,7 +2146,7 @@ oc<span class="w"> </span>delete<span class="w"> </span>-f<span class="w"> </spa
 echo $HOST
 </code></pre></div>
 <p>It should be something like </p>
-<div class="no-copy highlight"><pre><span></span><code>default-route-openshift-image-registry.apps.XXXXXXX.cloud.techzone.ibm.com
+<div class="no-copy highlight"><pre><span></span><code>default-route-openshift-image-registry.apps.XXXXXXX.ocp.techzone.ibm.com
 </code></pre></div>
 <p>Then, execute from the artifacts folder in your home directory the following command to build the docker image (notice last colon in the build command).</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>cd /home/userX/artifacts
@@ -2196,7 +2196,7 @@ podman tag docker.io/aranchaocana/hellonode:2.0 hellonode:1.0
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>REPOSITORY                                                                                                  TAG         IMAGE ID      CREATED        SIZE
 localhost/hellonode                                                                                         1.0         083a7cccf60e  4 minutes ago  404 MB
-default-route-openshift-image-registry.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com/ns30/hellonode  1.0         083a7cccf60e  4 minutes ago  404 MB
+default-route-openshift-image-registry.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com/ns30/hellonode    1.0         083a7cccf60e  4 minutes ago  404 MB
 </code></pre></div>
 <h3 id="2-create-an-image-java-ee">2. Create an image (Java EE)</h3>
 <p>For this lab we provide two files, <strong>HelloK8s.war</strong> with the Java EE web application and <strong>hellok8s.buildfile</strong> to generate the image.</p>
@@ -2248,7 +2248,7 @@ f6e9efdcd944783ed1f5bd5272a8c71058101b9e2347e5bce5792d5f15300c32
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>REPOSITORY                                                                                                  TAG                          IMAGE ID      CREATED         SIZE
 localhost/hellok8s                                                                                          1.0                          f6e9efdcd944  33 seconds ago  396 MB
 localhost/hellonode                                                                                         1.0                          083a7cccf60e  6 minutes ago   404 MB
-default-route-openshift-image-registry.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com/ns30/hellonode  1.0                          083a7cccf60e  6 minutes ago   404 MB
+default-route-openshift-image-registry.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com/ns30/hellonode    1.0                          083a7cccf60e  6 minutes ago   404 MB
 docker.io/library/websphere-liberty                                                                         19.0.0.9-webProfile8-java11  40271528d14a  4 years ago     396 MB
 </code></pre></div>
 <div class="admonition info">
@@ -2266,20 +2266,20 @@ podman tag docker.io/aranchaocana/hellok8s-java:1.0 hellok8s:1.0
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>REPOSITORY                                                                                                  TAG                          IMAGE ID      CREATED        SIZE
 localhost/hellok8s                                                                                          1.0                          f6e9efdcd944  2 minutes ago  396 MB
-default-route-openshift-image-registry.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com/ns30/hellok8s   1.0                          f6e9efdcd944  2 minutes ago  396 MB
+default-route-openshift-image-registry.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com/ns30/hellok8s     1.0                          f6e9efdcd944  2 minutes ago  396 MB
 localhost/hellonode                                                                                         1.0                          083a7cccf60e  8 minutes ago  404 MB
-default-route-openshift-image-registry.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com/ns30/hellonode  1.0                          083a7cccf60e  8 minutes ago  404 MB
+default-route-openshift-image-registry.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com/ns30/hellonode    1.0                          083a7cccf60e  8 minutes ago  404 MB
 docker.io/library/websphere-liberty                                                                         19.0.0.9-webProfile8-java11  40271528d14a  4 years ago    396 MB
 </code></pre></div>
 <h3 id="3-publish-the-image-to-openshift">3. Publish the image to OpenShift</h3>
 <p>We will publish the <strong>hellonode</strong> and <strong>hellok8s</strong> images to the OpenShift internal image registry using the <strong>podman push</strong> command. But before that, we should make sure the image tagging is correct.</p>
 <p><strong>Tag the image:</strong></p>
 <p>Podman will know where to push the image based on the image tag. Remember our tag is:</p>
-<div class="no-copy highlight"><pre><span></span><code>default-route-openshift-image-registry.apps.XXXXXXX.cloud.techzone.ibm.com/nsX/hellok8s:1.0
+<div class="no-copy highlight"><pre><span></span><code>default-route-openshift-image-registry.apps.XXXXXXX.ocp.techzone.ibm.com/nsX/hellok8s:1.0
 </code></pre></div>
 <p>Where:</p>
 <ul>
-<li><code>default-route-openshift-image-registry.apps.XXXXXXX.cloud.techzone.ibm.com</code> is the docker image registry.</li>
+<li><code>default-route-openshift-image-registry.apps.XXXXXXX.ocp.techzone.ibm.com</code> is the docker image registry.</li>
 <li><code>nsX</code> is the namespace.</li>
 <li><code>hellok8s</code> is the image name.</li>
 <li><code>1.0</code> is the version of the image.</li>
@@ -2330,7 +2330,7 @@ podman push ${HOST}/${PROJECT}/hellok8s:1.0 ${HOST}/${PROJECT}/hellok8s:1.0
 oc create -f was-ingress.yaml -n ${PROJECT}
 </code></pre></div>
 <p>As we have created an application on Websphere Liberty, we have to use the context root for the application (HelloK8s) to be able to access it. Point your browser to:</p>
-<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s">http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s</a></p>
+<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/HelloK8s">http://websphere-liberty-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/HelloK8s</a></p>
 <p><img alt="4.4.01" src="images/app-mod-ocp/4.4.01.png" style="max-height:100px" /></p>
 <p>You can also use <strong>curl</strong> to test your application:</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl<span class="w"> </span>http://websphere-liberty-app-<span class="si">${</span><span class="nv">PROJECT</span><span class="si">}</span>.<span class="si">${</span><span class="nv">CLUSTER_DOMAIN</span><span class="si">}</span>/HelloK8s
@@ -2374,7 +2374,7 @@ oc create -f was-ingress.yaml -n ${PROJECT}
 <span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">websphere-liberty-app</span>
-<span class="hll"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-route-openshift-image-registry.apps.XXXXXXX.cloud.techzone.ibm.com/nsX/hellok8s:1.0</span>
+<span class="hll"><span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-route-openshift-image-registry.apps.XXXXXXX.ocp.techzone.ibm.com/nsX/hellok8s:1.0</span>
 </span><span class="w">          </span><span class="nt">ports</span><span class="p">:</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9080</span>
 <span class="w">      </span><span class="nt">imagePullSecrets</span><span class="p">:</span>
@@ -2400,7 +2400,7 @@ oc create -f was-ingress.yaml -n ${PROJECT}
 websphere-liberty-app-848fc68d97-2q7w5   1/1     Running   0          53s
 </code></pre></div>
 <p>Now, point your browser to:</p>
-<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s">http://websphere-liberty-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/HelloK8s</a></p>
+<p><a href="http://websphere-liberty-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/HelloK8s">http://websphere-liberty-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/HelloK8s</a></p>
 <p><img alt="4.4.01" src="images/app-mod-ocp/4.4.01.png" style="max-height:100px" /></p>
 <p>the output is the same as before, but this time we are using an image from an <strong>"external"</strong> docker image registry.</p>
 <div class="admonition tip">
@@ -2438,7 +2438,7 @@ node-app-59fdfd5d69-vqphh   1/1     Running   0          14s
 <h3 id="1-automatic-restarts">1. Automatic restarts</h3>
 <p>Let's invoke <strong>/kill</strong> endpoint in the sample application. The <strong>/kill</strong> method executes <code>System.exit(0);</code> in Java or <code>process.exit();</code> in Node.js, which makes both runtimes to quit and finish the container.</p>
 <p>First, load the application in the browser via this URL: </p>
-<p><a href="http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/">http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/</a></p>
+<p><a href="http://node-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/">http://node-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/</a></p>
 <p><img alt="5.1.01" src="images/app-mod-ocp/5.1.01.png" style="max-height:120px" /></p>
 <p>Or from the command line:</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-${PROJECT}.${CLUSTER_DOMAIN}/
@@ -2446,7 +2446,7 @@ node-app-59fdfd5d69-vqphh   1/1     Running   0          14s
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>I&#39;m alive 8!!!
 </code></pre></div>
 <p>Once the app is running, call the <strong>/kill</strong> endpoint:</p>
-<p><a href="http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/kill">http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/kill</a></p>
+<p><a href="http://node-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/kill">http://node-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/kill</a></p>
 <p><img alt="5.1.02" src="images/app-mod-ocp/5.1.02.png" style="max-height:120px" /></p>
 <p>Or executing the respective curl command: </p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-${PROJECT}.${CLUSTER_DOMAIN}/kill
@@ -2526,7 +2526,7 @@ node-app-59fdfd5d69-fjzmc   1/1     Running   0          4s
 </code></pre></div>
 <p>With this configuration, OpenShift will invoke the endpoint <strong>/heath</strong> in intervals of 10 seconds. If the application does not return HTTP 200 OK for three consecutive times, OpenShift will restart the application.</p>
 <p>Load again the application in the browser:</p>
-<p><a href="http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/">http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/</a></p>
+<p><a href="http://node-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/">http://node-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/</a></p>
 <p>or execute</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-${PROJECT}.${CLUSTER_DOMAIN}/
 </code></pre></div>
@@ -2562,7 +2562,7 @@ node-app-59fdfd5d69-fjzmc   1/1     Running   0          4s
 </code></pre></div>
 <p>You can see how the <strong>/health</strong> endpoint is invoked periodically.</p>
 <p>Now if we invoke the <strong>/infect</strong> endpoint from the browser:</p>
-<p><a href="http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/infect">http://node-app-nsX.apps.XXXXXXX.cloud.techzone.ibm.com/infect</a></p>
+<p><a href="http://node-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/infect">http://node-app-nsX.apps.XXXXXXX.ocp.techzone.ibm.com/infect</a></p>
 <p><img alt="5.2.04" src="images/app-mod-ocp/5.2.04.png" style="max-height:120px" /></p>
 <p>or executing:</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl http://node-app-${PROJECT}.${CLUSTER_DOMAIN}/infect
@@ -2760,7 +2760,7 @@ oc new-app nginx~https://github.com/sclorg/nginx-ex --name=backend -n ${PROJECT}
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get route -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>NAME    HOST/PORT                                                         PATH   SERVICES   PORT       TERMINATION   WILDCARD
-front   front-ns30.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com          front      8080-tcp                 None
+front   front-ns30.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com            front      8080-tcp                 None
 </code></pre></div>
 <p>Get services information:</p>
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc get services -n ${PROJECT}
@@ -2815,7 +2815,7 @@ oc label namespace ns-network name=ns-network
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project ns-network
 oc get pods
 </code></pre></div>
-<div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>Now using project &quot;ns-network&quot; on server &quot;https://api.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com:6443&quot;.
+<div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>Now using project &quot;ns-network&quot; on server &quot;https://api.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com:6443&quot;.
 NAME                   READY   STATUS      RESTARTS   AGE
 test-1-build           0/1     Completed   0          7h21m
 test-f47c85c89-x8j2f   1/1     Running     0          7h21m
@@ -2854,9 +2854,9 @@ oc rsh test-f47c85c89-x8j2f curl 172.30.108.64:8080 | grep nginx
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>curl -s -v front-${PROJECT}.${CLUSTER_DOMAIN} | grep nginx
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>*   Trying 169.50.187.164:80...
-* Connected to front-ns30.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com (169.50.187.164) port 80
+* Connected to front-ns30.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com (169.50.187.164) port 80
 &gt; GET / HTTP/1.1
-&gt; Host: front-ns30.apps.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com
+&gt; Host: front-ns30.apps.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com
 &gt; User-Agent: curl/8.4.0
 &gt; Accept: */*
 &gt; 
@@ -2933,7 +2933,7 @@ deny-all         &lt;none&gt;             4m59s
 <div class="copy highlight"><span class="filename">Command</span><pre><span></span><code>oc project ns-network
 oc describe namespace ns-network
 </code></pre></div>
-<div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>Now using project &quot;ns-network&quot; on server &quot;https://api.65f05030777e25001ee8fdfa.cloud.techzone.ibm.com:6443&quot;.
+<div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>Now using project &quot;ns-network&quot; on server &quot;https://api.65f05030777e25001ee8fdfa.ocp.techzone.ibm.com:6443&quot;.
 Name:         ns-network
 Labels:       kubernetes.io/metadata.name=ns-network
 <span class="hll">              name=ns-network
@@ -3012,7 +3012,7 @@ oc create -f allow-from-openshift-ingress.yaml -n ${PROJECT}
 </code></pre></div>
 <div class="no-copy output highlight"><span class="filename">Output</span><pre><span></span><code>    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Welcome to your static nginx application on OpenShift<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
 </code></pre></div>
-<p>From a web browser type <a href="http://front-nsX.apps.XXXXXXX.cloud.techzone.ibm.com">http://front-nsX.apps.XXXXXXX.cloud.techzone.ibm.com</a>:</p>
+<p>From a web browser type <a href="http://front-nsX.apps.XXXXXXX.ocp.techzone.ibm.com">http://front-nsX.apps.XXXXXXX.ocp.techzone.ibm.com</a>:</p>
 <p><img alt="6.4.01" src="images/app-mod-ocp/6.4.01.png" style="max-height:500px" /></p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -3261,7 +3261,7 @@ test3
 <p>When the application be ready deployed, it will appear on green:</p>
 <p><img alt="8.1.06" src="images/app-mod-ocp/8.1.06.png" style="max-height:900px" /></p>
 <p>A route has been generated for you. Click on it in order to access the new application. It will open a new tab.</p>
-<p><a href="https://node-s2i-openshift-nsX.apps.XXXXXX.cloud.techzone.ibm.com/login.html">https://node-s2i-openshift-nsX.apps.XXXXXX.cloud.techzone.ibm.com/login.html</a></p>
+<p><a href="https://node-s2i-openshift-nsX.apps.XXXXXX.ocp.techzone.ibm.com/login.html">https://node-s2i-openshift-nsX.apps.XXXXXX.ocp.techzone.ibm.com/login.html</a></p>
 <p>Enter a dummy user and password:</p>
 <p><img alt="8.1.07" src="images/app-mod-ocp/8.1.07.png" style="max-height:700px" /></p>
 <p><img alt="8.1.08" src="images/app-mod-ocp/8.1.08.png" style="max-height:700px" /></p>
@@ -3427,7 +3427,7 @@ Or Click the Source identifier for the entry. Click the **+** icon and press ent
 <p>The defined alerts are in the configmap <strong>prometheus-k8s-rulefiles-0</strong> in the namespace <strong>openshift-monitoring</strong>.</p>
 <p>In the YAML tab, it is possible to configure how the Prometheus alert engine behaves. This is useful for things like exporting the alerts to other systems compatible with Prometheus alerts.</p>
 <p>This configuration can only be changed by administrator users:</p>
-<p><img alt="10.2.03" src="images/app-mod-ocp/10.2.03.png" style="max-height:600px" /></p>
+<p><img alt="10.2.03" src="images/app-mod-ocp/10.2.03.png" style="max-height:800px" /></p>
 <h3 id="3-metrics">3. Metrics</h3>
 <div class="admonition info">
 <p class="admonition-title">Reference</p>
@@ -3738,7 +3738,7 @@ cd transformationadvisor*
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-04-16T11:49:20+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-04-16</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-11-15T11:30:52+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-11-15</span>
   </span>
 
     
